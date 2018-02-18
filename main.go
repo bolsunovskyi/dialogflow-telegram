@@ -37,7 +37,7 @@ func main() {
 	//set log output if l param is set
 	setLogFiles(*args.LogFile)
 	//starting bot
-	log.Println("Starting telegram bot...")
+	log.Println("Starting telegram bot")
 	b, err := tb.NewBot(tb.Settings{
 		Token:  *args.Token,
 		Poller: &tb.LongPoller{Timeout: 10 * time.Second},
@@ -70,6 +70,8 @@ func main() {
 				log.Printf("%+v\n", rsp)
 			}
 			b.Send(m.Sender, rsp.Result.Speech)
+		} else if *args.Debug {
+			log.Println("user is not allowed")
 		}
 	})
 

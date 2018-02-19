@@ -8,8 +8,8 @@ WORKDIR /go/src/dialogflow-telegram/
 RUN go get
 RUN CGO_ENABLED=0 go build -a --installsuffix cgo --ldflags="-s"
 
-#FROM alpine:3.5
-FROM scratch
+FROM alpine:3.5
+RUN apk update && apk add ca-certificates
 COPY --from=builder /go/src/dialogflow-telegram/dialogflow-telegram /dialogflow-telegram
 WORKDIR /
 ENTRYPOINT ["/dialogflow-telegram"]
